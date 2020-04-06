@@ -33,7 +33,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo-1518286905286-7c6363373a12 1" translatesAutoresizingMaskIntoConstraints="NO" id="3V8-iN-U6D">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Rain" translatesAutoresizingMaskIntoConstraints="NO" id="3V8-iN-U6D">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JXq-p4-EeS">
@@ -42,7 +42,7 @@
                         <constraint firstAttribute="height" constant="25" id="57V-yl-zae"/>
                         <constraint firstAttribute="width" constant="25" id="iuZ-Ds-qla"/>
                     </constraints>
-                    <state key="normal" image="Mask"/>
+                    <state key="normal" image="SearchIcon"/>
                     <connections>
                         <action selector="cityButtonDidPressed:" destination="-1" eventType="touchUpInside" id="VHP-q5-8R1"/>
                     </connections>
@@ -65,7 +65,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Group" translatesAutoresizingMaskIntoConstraints="NO" id="Zd6-DZ-Slr">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RainIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Zd6-DZ-Slr">
                     <rect key="frame" x="20" y="330" width="35" height="35"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Zd6-DZ-Slr" secondAttribute="height" multiplier="1:1" id="dP4-YY-eSj"/>
@@ -98,21 +98,21 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="82" translatesAutoresizingMaskIntoConstraints="NO" id="J5f-0Z-NZW">
                                     <rect key="frame" x="0.0" y="0.0" width="314" height="42"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="Vector" translatesAutoresizingMaskIntoConstraints="NO" id="x3C-iq-Fu0">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="HumidityIconState" translatesAutoresizingMaskIntoConstraints="NO" id="x3C-iq-Fu0">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="42"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="42" id="6N2-FS-nsY"/>
                                                 <constraint firstAttribute="width" constant="50" id="hQH-kO-raG"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vector-1" translatesAutoresizingMaskIntoConstraints="NO" id="q05-xt-uis">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WindIconState" translatesAutoresizingMaskIntoConstraints="NO" id="q05-xt-uis">
                                             <rect key="frame" x="132" y="0.0" width="50" height="42"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="42" id="6Cv-tK-I4j"/>
                                                 <constraint firstAttribute="width" constant="50" id="m6Y-k1-ZU3"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vector-2" translatesAutoresizingMaskIntoConstraints="NO" id="v8j-RW-cpH">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RainIconState" translatesAutoresizingMaskIntoConstraints="NO" id="v8j-RW-cpH">
                                             <rect key="frame" x="264" y="0.0" width="50" height="42"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="UUy-T6-iKE"/>
@@ -202,11 +202,11 @@
         </view>
     </objects>
     <resources>
-        <image name="Group" width="35" height="35"/>
-        <image name="Mask" width="25" height="25"/>
-        <image name="Vector" width="28" height="38"/>
-        <image name="Vector-1" width="50" height="36"/>
-        <image name="Vector-2" width="49" height="42"/>
-        <image name="photo-1518286905286-7c6363373a12 1" width="375" height="812"/>
+        <image name="HumidityIconState" width="28" height="38"/>
+        <image name="Rain" width="375" height="812"/>
+        <image name="RainIcon" width="35" height="35"/>
+        <image name="RainIconState" width="49" height="42"/>
+        <image name="SearchIcon" width="25" height="25"/>
+        <image name="WindIconState" width="50" height="36"/>
     </resources>
 </document>

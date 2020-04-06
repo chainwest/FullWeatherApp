@@ -41,7 +41,7 @@ class CitiesView: UIView {
     @IBOutlet weak var textField: UITextField! {
         didSet {
             textField.layer.masksToBounds = true
-            textField.layer.cornerRadius = 15
+            textField.layer.cornerRadius = 10
         }
     }
     
