@@ -15,6 +15,16 @@ class ApiService {
         AF.request(url, method: method, parameters: params).responseData { response in
             switch response.result {
             case .success(let data):
+                guard let statusCode = response.response?.statusCode else {
+                    completion(.failure(ApiError.serverError))
+                    return
+                }
+                
+                guard case 200...206 = statusCode else {
+                  completion(.failure(self.handleError(statusCode: response.response?.statusCode)))
+                  return
+                }
+                
                 let decoder = JSONDecoder()
                 
                 do {
@@ -30,13 +40,28 @@ class ApiService {
     }
     
     func getWeatherByCity(completion: @escaping (Swift.Result<Response, Error>) -> Void) {
-        let params: [String : String] = [
+        let params: [String : Any] = [
             "access_key" : Constants.API_KEY,
-            "query" : Constants.city
+            "query" : Constants.city!
         ]
         
         baseRequest(ofType: Response.self, url: Constants.url, method: .get, params: params) { response in
             completion(response)
+        }
+    }
+    
+    private func handleError(statusCode: Int?) -> Error {
+        guard let statusCode = statusCode else {
+            return ApiError.cityNotFound
+        }
+        
+        switch statusCode {
+        case 400...499:
+          return ApiError.cityNotFound
+        case 500...526:
+          return ApiError.serverError
+        default:
+            return ApiError.badCityError
         }
     }
 }

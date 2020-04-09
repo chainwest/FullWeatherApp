@@ -8,14 +8,24 @@
 
 import Foundation
 
-struct Current: Decodable {
+struct Properties: Decodable {
     var temperature: Double
-    var wind_speed: Double
+    var windSpeed: Double
     var precip: Double
     var humidity: Double
     var feelslike: Double
+    var weatherDescription: [String]
+    
+    enum CodingKeys: String, CodingKey {
+        case temperature
+        case windSpeed = "wind_speed"
+        case precip
+        case humidity
+        case feelslike
+        case weatherDescription = "weather_descriptions"
+    }
 }
 
 struct Response: Decodable {
-    var current: Current
+    var current: Properties
 }

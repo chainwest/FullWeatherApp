@@ -11,5 +11,5 @@ import Foundation
 enum Constants {
     static let url = "http://api.weatherstack.com/current"
     static let API_KEY = "cc582b9dafedbba713265ccf73342c2f"
-    static var city = ""
+    static var city: String?
 }

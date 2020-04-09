@@ -8,6 +8,8 @@
 
 import Foundation
 
+// Coordinator class was taken from here - https://medium.com/sudo-by-icalia-labs/ios-architecture-mvvm-c-coordinators-3-6-3960ad9a6d85
+
 class Coordinator {
 
     private(set) var childCoordinators: [Coordinator] = []
@@ -30,14 +32,6 @@ class Coordinator {
         } else {
             print("Couldn't remove coordinator: \(coordinator). It's not a child coordinator.")
         }
-    }
-
-    func removeAllChildCoordinatorsWith<T>(type: T.Type) {
-        childCoordinators = childCoordinators.filter { $0 is T  == false }
-    }
-
-    func removeAllChildCoordinators() {
-        childCoordinators.removeAll()
     }
 
 }

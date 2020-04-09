@@ -14,7 +14,7 @@ protocol WeatherViewModelDelegate: class {
 }
 
 class WeatherViewModel {
-    weak var delegate: WeatherViewModelDelegate?
+    weak var coordinatorDelegate: WeatherViewModelDelegate?
     
     var onDidUpdate: (() -> Void)?
     
@@ -25,6 +25,7 @@ class WeatherViewModel {
     private(set) var precip: String?
     private(set) var humidity: String?
     private(set) var feelslike: String?
+    private(set) var weatherDescription: String?
     
     init(apiService: ApiService) {
         self.apiService = apiService
@@ -35,10 +36,11 @@ class WeatherViewModel {
             switch response {
             case .success(let data):
                 self.temperature = String(data.current.temperature)
-                self.wind_speed = String(data.current.wind_speed)
+                self.wind_speed = String(data.current.windSpeed)
                 self.precip = String(data.current.precip)
                 self.humidity = String(data.current.humidity)
                 self.feelslike = String(data.current.feelslike)
+                self.weatherDescription = data.current.weatherDescription[0]
                 self.onDidUpdate?()
             case .failure(let error):
                 print(error)

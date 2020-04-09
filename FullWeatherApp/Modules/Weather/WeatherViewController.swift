@@ -12,14 +12,8 @@ class WeatherViewController: UIViewController {
     
     let viewModel: WeatherViewModel
     
-    private lazy var alertView: CitiesView = {
-        let alertView = (Bundle.main.loadNibNamed("CitiesView", owner: self, options: nil)?.first as! CitiesView)
-        alertView.delegate = self
-        return alertView
-    }()
-    
     let visualEffectView: UIVisualEffectView = {
-        let blur = UIBlurEffect(style: .dark)
+        let blur = UIBlurEffect(style: .light)
         let view = UIVisualEffectView(effect: blur)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -32,6 +26,7 @@ class WeatherViewController: UIViewController {
         }
     }
 
+    @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var cityButton: UIButton!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
@@ -76,31 +71,69 @@ class WeatherViewController: UIViewController {
         visualEffectView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         visualEffectView.alpha = 0
     }
-
+    
     private func setupAlert() {
-        view.addSubview(alertView)
-        alertView.center = view.center
+        let alert = UIAlertController(title: "", message: "Введите название города", preferredStyle: .alert)
+        
+        alert.addTextField { textField in
+            textField.placeholder = "Название города"
+            textField.autocapitalizationType = .sentences
+        }
+        
+        let action = UIAlertAction(title: "ОК", style: .default) { [weak alert] (_) in
+            let textField = alert?.textFields![0]
+            
+            if let cityName = textField?.text {
+                Constants.city = cityName
+                self.viewModel.getWeather()
+            }
+            
+            self.animateOut()
+        }
+        
+        alert.addAction(action)
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     private func animateIn() {
-        alertView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
-        alertView.alpha = 0
-        
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.2) {
             self.visualEffectView.alpha = 1
-            self.alertView.alpha = 1
-            self.alertView.transform = CGAffineTransform.identity
         }
     }
     
     private func animateOut() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.2) {
             self.visualEffectView.alpha = 0
-            self.alertView.alpha = 0
-            self.alertView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
-
-        }) { (_) in
-            self.alertView.removeFromSuperview()
+        }
+    }
+    
+    private func baseWeatherState(_ background: String, _ stateImageName: String, _ stateName: String) {
+        backgroundImage.image = UIImage(named: background)
+        stateImage.image = UIImage(named: stateImageName)
+        stateLabel.text = stateName
+    }
+    
+    private func updateWeatherState(state: String) {
+        switch state {
+        case "Sunny":
+            baseWeatherState("Sunny", "SunnyIcon", "Солнечно")
+        case "Clear":
+            baseWeatherState("Clear", "ClearIcon", "Ясно")
+        case "Patchy rain possible":
+            baseWeatherState("Rain", "RainIcon", "Пасмурно")
+        case "Partly cloudy":
+            baseWeatherState("LowCloudyDay", "LowCloudyDayIcon", "Облачно")
+        case "Rain":
+            baseWeatherState("Rain", "RainIcon", "Дождь")
+        case "Overcast":
+            baseWeatherState("Cloudy", "CloudyIcon", "Пасмурно")
+        case "Light Drizzle":
+            baseWeatherState("Rain", "RainIcon", "Мелкий дождь")
+        case "Light Rain":
+            baseWeatherState("Rain", "RainIcon", "Слабый дождь")
+        default:
+            print("Weather state is unavailable")
         }
     }
     
@@ -112,6 +145,7 @@ class WeatherViewController: UIViewController {
             self?.humidityLabel.text = self?.viewModel.humidity
             self?.precipLabel.text = self?.viewModel.precip
             self?.windLabel.text = self?.viewModel.wind_speed
+            self?.updateWeatherState(state: (self?.viewModel.weatherDescription!)!)
         }
     }
     
@@ -119,20 +153,5 @@ class WeatherViewController: UIViewController {
         setupAlert()
         animateIn()
         dataBinding()
-    }
-}
-
-extension WeatherViewController: CitiesViewDelegate {
-    func selectButtonDidPressed() {
-        if !alertView.textField.text!.isEmpty {
-            Constants.city = alertView.textField.text!
-            alertView.textField.text! = ""
-            viewModel.getWeather()
-        }
-        animateOut()
-    }
-    
-    func closeButtonDidPressed() {
-        animateOut()
     }
 }
